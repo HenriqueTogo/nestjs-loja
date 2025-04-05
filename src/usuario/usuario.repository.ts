@@ -40,4 +40,25 @@ export class UsuarioRepository {
         );
         return possivelUsuario;
     }
+
+    private buscaPorId(id: string) {
+        const possivelUsuario = this.usuarios.find(
+            usuarioSalvo => usuarioSalvo.id === id
+        );
+    
+        if(!possivelUsuario) {
+            throw new Error('Usuário não existe');
+        }
+    
+        return possivelUsuario;
+    }
+
+    async remove(id: string) {
+        const usuarioRemovido = this.buscaPorId(id);
+
+        this.usuarios = this.usuarios.filter(
+            usuario => usuario.id !== id
+        );
+        return usuarioRemovido;
+    }
 }
